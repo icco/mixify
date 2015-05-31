@@ -34,13 +34,14 @@ if [ "$3" == "" ]; then
     echo
     echo "If a fadeout or fadein is not desired then specify \"no\" for that option.  \"yes\" will force a fade and \"auto\" will try to detect if a fade should occur."
     echo
-    echo "Example: $0 10 infile1.wav infile2.wav auto auto"
+    echo "Example: $0 10 infile1.wav infile2.wav auto auto output.wav"
     exit 1
 fi
 
 fade_length=$1
 first_file=$2
 second_file=$3
+final_mix=$6
 
 fade_first="auto"
 if [ "$4" != "" ]; then
@@ -118,7 +119,7 @@ echo "Trimming off crossfade sections from original files..."
 
 $SOX "$first_file" -b 16 song1.wav trim 0 $trim_length
 $SOX "$second_file" -b 16 song2.wav trim $fade_length
-$SOX song1.wav crossfade.wav song2.wav mix.wav
+$SOX song1.wav crossfade.wav song2.wav $final_mix
 
 echo -e "Removing temporary files...\n" 
 rm fadeout1.wav fadeout2.wav fadein1.wav fadein2.wav crossfade.wav song1.wav song2.wav
