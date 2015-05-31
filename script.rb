@@ -1,9 +1,7 @@
 require 'fileutils'
 
 setlist = ARGV[0]
-p setlist
 mix_name = setlist.sub("https://soundcloud.com/","").gsub!("/","-").sub("-sets","")
-p mix_name
 date_now = Time.now.strftime("%m-%d-%Y")
 mix_directory = "mixes/#{date_now}-#{mix_name}"
 absolute_mix_directory =  Dir.pwd + "/" + mix_directory
