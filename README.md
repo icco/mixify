@@ -16,3 +16,7 @@ Songs must be .wavs so this helps
 `ruby script.rb [Soundcloud Set URL]`
 
 ie.  `ruby script.rb https://soundcloud.com/alexbaldwin/sets/mixify-demo`
+
+## Demix
+
+Takes a setlist and returns the individual track links.
