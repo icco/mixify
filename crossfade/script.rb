@@ -5,7 +5,7 @@ mix_name = setlist.sub("https://soundcloud.com/","").gsub!("/","-").sub("-sets",
 date_now = Time.now.strftime("%m-%d-%Y")
 mix_directory = "mixes/#{date_now}-#{mix_name}"
 absolute_mix_directory =  Dir.pwd + "/" + mix_directory
-intro_url = "http://f.cl.ly/items/1e1P0z240a2a3n2d003w/intro.wav"
+intro_url = "http://f.cl.ly/items/3I20252p0H2E1M3F2L3s/outfile.wav"
 crossfade_duration = 7
 intro_location = absolute_mix_directory + "/mix.wav"
 
