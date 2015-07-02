@@ -1,0 +1,7 @@
+source 'https://rubygems.org'
+ruby '2.2.2'
+
+gem 'soundcloud'
+gem 'dotenv'
+gem 'awesome_print'
+gem 'time_diff'
