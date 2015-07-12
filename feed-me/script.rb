@@ -1,6 +1,8 @@
-require 'dotenv'
-require 'soundcloud'
-require 'awesome_print'
+#! /usr/bin/env ruby
+
+require 'bundler/setup'
+Bundler.require
+
 Dotenv.load
 
 def get_ranked
