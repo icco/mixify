@@ -13,27 +13,42 @@ def get_ranked
     :password      => ENV['SOUNDCLOUD_PASSWORD']
   })
 
-  ranked = Hash.new
+  days = Hash.new
+
   href = '/me/activities?limit=200'
   while href and href != ""
     # Get user's last 200 tracks
     resp = client.get(href)
 
-    # For each activity, verify it is a track. Then calculate a score based on
-    # # of favorites divided by number of hours since the item was added to
-    # user's stream. If this post was eight days ago, then we've looked too far
-    # back in time, so we should return the rankings table. Otherwise add the
-    # track to the rankings table and keep looking.
     resp.collection.each do |track|
       if track.type == "track"
-        favorites =  track.origin['favoritings_count']
+        favorites = track.origin['favoritings_count']
+        plays = track.origin['playback_count']
         title = track.origin['permalink_url']
         time_ago_in_hours = (Time.now - Time.parse(track.origin.created_at)) / (60 * 60)
-        score = favorites / (time_ago_in_hours + 2)
+
+        # Turn into a float of minutes
+        duration = track.origin['duration'] / 60 / 1000
+        score = (favorites.to_f / plays.to_f) * 100
+
+        if duration > 12 or score < 2
+          next
+        end
+
         if time_ago_in_hours > 8 * 24
-          return ranked
+          # Sort each day by score.
+          days.each do |day, scores|
+            days[day] = scores.sort_by {|title, score| score }.reverse.to_h
+          end
+
+          return days
         elsif time_ago_in_hours > 24
-          ranked[title] = score
+          date = Time.parse(track.origin.created_at).strftime("%F")
+          if days[date].nil?
+            days[date] = {}
+          end
+
+          days[date][title] = score
         end
       end
     end
@@ -44,4 +59,5 @@ def get_ranked
   end
 end
 
-ap get_ranked.sort_by {|title, score| score }.reverse.to_h
+# ap get_ranked.sort_by {|title, score| score }.reverse.to_h
+ap get_ranked
