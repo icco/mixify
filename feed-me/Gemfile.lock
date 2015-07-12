@@ -2,7 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     awesome_print (1.6.1)
-    dotenv (2.0.1)
+    dotenv (2.0.2)
     hashie (2.1.2)
     httmultiparty (0.3.16)
       httparty (>= 0.7.3)
@@ -26,3 +26,6 @@ DEPENDENCIES
   awesome_print
   dotenv
   soundcloud
+
+BUNDLED WITH
+   1.10.5
