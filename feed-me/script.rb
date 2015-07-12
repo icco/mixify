@@ -16,7 +16,14 @@ def get_ranked
   ranked = Hash.new
   href = '/me/activities?limit=200'
   while href and href != ""
+    # Get user's last 200 tracks
     resp = client.get(href)
+
+    # For each activity, verify it is a track. Then calculate a score based on
+    # # of favorites divided by number of hours since the item was added to
+    # user's stream. If this post was eight days ago, then we've looked too far
+    # back in time, so we should return the rankings table. Otherwise add the
+    # track to the rankings table and keep looking.
     resp.collection.each do |track|
       if track.type == "track"
         favorites =  track.origin['favoritings_count']
@@ -30,6 +37,9 @@ def get_ranked
         end
       end
     end
+
+    # We've looked at 200 tracks, and none are older than 8 days, so we should
+    # keep going through the history.
     href = resp.next_href
   end
 end
