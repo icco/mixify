@@ -36,3 +36,4 @@ build/
 .rvmrc
 
 crossfade/mixes/
+.DS_Store
