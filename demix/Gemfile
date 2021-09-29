@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
 ruby '2.2.2'
 
-gem "nokogiri"
-gem "mechanize"
+gem "nokogiri", ">= 1.12.5"
+gem "mechanize", ">= 2.7.3"
